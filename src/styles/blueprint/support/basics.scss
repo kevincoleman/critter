@@ -1,0 +1,54 @@
+@import "variables";
+@import "fonts";
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  font: 16px/1.6 Helvetica, Arial, sans-serif;
+}
+
+.page {
+  padding: 3rem 0 1rem;
+}
+
+.container {
+  max-width: 40rem;
+  margin: 0 1rem;
+
+  @media screen and (min-width: 42rem) {
+    margin: 0 auto;
+  }
+}
+
+.container, .page {
+  > h1, > h2, > h3, > h4, > h5, > h6, > p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 1em;
+  margin: 0 0 0.125em;
+}
+
+$header-scale-factor: 1.5;
+h1 { font-size: 2.30rem * $header-scale-factor; }
+h2 { font-size: 2.07rem * $header-scale-factor; }
+h3 { font-size: 1.84rem * $header-scale-factor; }
+h4 { font-size: 1.61rem * $header-scale-factor; }
+h5 { font-size: 1.38rem * $header-scale-factor; }
+h6 { font-size: 1.15rem * $header-scale-factor; }
+
+img {
+  display: inline-block;
+  height: auto;
+  width: 100%;
+}

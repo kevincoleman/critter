@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html lang="en" class="no-js">
+
+<head>
+  <base href="<%= webpackConfig.metadata.baseUrl %>">
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width initial-scale=1.0">
+  <title><%= webpackConfig.metadata.title %></title>
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <!-- Place favicon.ico in the root directory-->
+  <link href="<%= htmlWebpackPlugin.files.chunks['styles'].css %>" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Add your site or application content here-->
+  <app></app>
+  <!-- Webpack server reload-->
+  <script src="http://<%= webpackConfig.metadata.host %>:<%= webpackConfig.metadata.port %>/webpack-dev-server.js"></script>
+  <script src="<%= htmlWebpackPlugin.files.chunks['polyfills'].entry %>"></script>
+  <script src="<%= htmlWebpackPlugin.files.chunks['vendor'].entry %>"></script>
+  <script src="<%= htmlWebpackPlugin.files.chunks['main'].entry %>"></script>
+</body>
+
+</html>

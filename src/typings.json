@@ -1,0 +1,9 @@
+{
+  "name": "adventist-giving-wireframes",
+  "version": false,
+  "ambientDependencies": {
+    "core-js": "registry:dt/core-js#0.0.0+20160317120654",
+    "faker": "registry:dt/faker#0.0.0+20160406111603",
+    "webpack-env": "registry:dt/webpack-env#1.12.2+20160316155526"
+  }
+}
