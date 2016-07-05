@@ -1,8 +1,7 @@
 // Core
-import {  Component} from "@angular/core";
-
-import {  Critter         } from "../../services/critters/critter";
-import {  CritterService  } from "../../services/critters/critters.service";
+import { Component } from "@angular/core";
+import { MapComponent }
+  from "../map/map.component";
 
 const template  = require<string>("./home.html");
 const styles    = require<string>("./home.scss");
@@ -11,19 +10,11 @@ const styles    = require<string>("./home.scss");
   selector:   "home",
   template:   template,
   styles:     [ styles ],
-  providers:  [
-    CritterService
+  directives: [
+    MapComponent
   ]
 })
 
 export class HomeComponent {
-
-  activeCritters: Critter[];
-
-  constructor (
-    private critterService: CritterService
-  ) {
-    this.activeCritters = critterService.getCritters();
-  }
-
+  constructor () { }
 }

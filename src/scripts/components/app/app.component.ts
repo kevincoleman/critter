@@ -1,12 +1,22 @@
 // Core
-import {  Component } from "@angular/core";
-import {  RouteConfig,
-          Router,
-          ROUTER_PROVIDERS,
-          ROUTER_DIRECTIVES } from "@angular/router-deprecated";
+import { Component }
+  from "@angular/core";
+import { RouteConfig,
+         Router,
+         ROUTER_PROVIDERS,
+         ROUTER_DIRECTIVES }
+  from "@angular/router-deprecated";
 
 // Template Directives
-import {  HomeComponent } from "../home/home.component";
+import { HomeComponent }
+  from "../home/home.component";
+
+// Services
+import { SpaceService }
+  from "../../services";
+
+// import { Space }
+//   from "../../models";
 
 const template  = require<string>("./app.html");
 const styles    = require<string>("./app.scss");
@@ -16,10 +26,11 @@ const styles    = require<string>("./app.scss");
   template:   template,
   styles:     [ styles ],
   providers:  [
-    ROUTER_PROVIDERS
+    ROUTER_PROVIDERS,
+    SpaceService
   ],
   directives: [
-    ROUTER_DIRECTIVES
+    ROUTER_DIRECTIVES,
   ]
 })
 @RouteConfig([
