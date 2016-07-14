@@ -5,16 +5,11 @@ import { Space } from "../models";
 @Injectable()
 export class SpaceService {
 
-  public map: Space[] = [];
   private _types = [
     {type: "water", likelihood: .06},
     {type: "rock", likelihood: .18},
     {type: "snow", likelihood: .02}
   ];
-
-  constructor() {
-    this.generateMap();
-  }
 
   get typesTotal(): number {
     let total = 1;
@@ -24,20 +19,11 @@ export class SpaceService {
     return total;
   }
 
-  generateMap() {
-    for (let i = 0; i < 256; i++) {
-      let newSpace = this.generate();
-      newSpace.positionx = (i % 16) + 1;
-      newSpace.positiony = Math.floor(i / 16) + 1;
-      this.map = [ ...this.map, newSpace ];
-    }
-  }
-
-  generate() {
+  generate(positionX, positionY) {
     let space: Space = {
       type: "blank",
-      positionx: null,
-      positiony: null
+      positionX: positionX,
+      positionY: positionY
     };
     // roll against each type’s likelihood
     let type = this._types

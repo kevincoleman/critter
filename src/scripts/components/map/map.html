@@ -1,3 +1,4 @@
 <div class="map">
-  <space *ngFor="let space of spaceService.map" [class]="space.type"></space>
+  <space *ngFor="let space of map.data" [class]="space.type"></space>
+  <hunter [style.top]="hunterY + 'px'" [style.left]="hunterX + 'px'"></hunter>
 </div>

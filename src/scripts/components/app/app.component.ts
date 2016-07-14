@@ -12,7 +12,7 @@ import { HomeComponent }
   from "../home/home.component";
 
 // Services
-import { SpaceService }
+import { HunterService, MapService, SpaceService }
   from "../../services";
 
 // import { Space }
@@ -27,6 +27,8 @@ const styles    = require<string>("./app.scss");
   styles:     [ styles ],
   providers:  [
     ROUTER_PROVIDERS,
+    HunterService,
+    MapService,
     SpaceService
   ],
   directives: [
