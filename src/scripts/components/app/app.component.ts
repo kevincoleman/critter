@@ -1,15 +1,8 @@
 // Core
 import { Component }
   from "@angular/core";
-import { RouteConfig,
-         Router,
-         ROUTER_PROVIDERS,
-         ROUTER_DIRECTIVES }
-  from "@angular/router-deprecated";
-
-// Template Directives
-import { HomeComponent }
-  from "../home/home.component";
+import { ROUTER_DIRECTIVES }
+  from "@angular/router";
 
 // Services
 import { HunterService, MapService, SpaceService }
@@ -26,29 +19,14 @@ const styles    = require<string>("./app.scss");
   template:   template,
   styles:     [ styles ],
   providers:  [
-    ROUTER_PROVIDERS,
     HunterService,
     MapService,
     SpaceService
   ],
   directives: [
-    ROUTER_DIRECTIVES,
+    ROUTER_DIRECTIVES
   ]
 })
-@RouteConfig([
-  {
-    path        : "/",
-    component   : HomeComponent,
-    name        : "Home",
-    useAsDefault: true
-  }
-])
-export class AppComponent {
-  currentPath: string;
 
-  constructor (
-    router: Router
-  ) {
-    router.subscribe(value => this.currentPath = value);
-  }
-}
+
+export class AppComponent { }

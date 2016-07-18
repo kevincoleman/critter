@@ -2,6 +2,7 @@ import { ComponentRef } from "@angular/core";
 import { bootstrap    } from "@angular/platform-browser-dynamic";
 import { hotModuleReplacement } from "angular2-hmr";
 
+import { APP_ROUTER_PROVIDERS } from "./components/app/app.routes";
 import { AppComponent } from "./components/app/app.component";
 
 /*
@@ -17,7 +18,7 @@ export function main(): Promise<ComponentRef<AppComponent>> {
   // NOTE: Any custom override providers given here are not automatically made
   // available to your components. They are simply overrides for the platform
   // injector’s default set of providers (see BROWSER_APP_PROVIDERS).
-  return bootstrap(AppComponent, [])
+  return bootstrap(AppComponent, [APP_ROUTER_PROVIDERS])
     .catch(err => console.error(err));
 }
 
