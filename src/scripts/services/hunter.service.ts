@@ -24,22 +24,34 @@ export class HunterService {
   public go(direction) {
     switch (direction) {
       case "up":
-        if (this.isNavigable(this.positionX, this.positionY - 1)) {
+        if (this.isNavigable(
+          this.positionX,
+          this.positionY - 1)
+        ) {
           this.positionY--;
         }
         break;
       case "down":
-        if (this.isNavigable(this.positionX, this.positionY + 1)) {
+        if (this.isNavigable(
+          this.positionX,
+          this.positionY + 1)
+        ) {
           this.positionY++;
         }
         break;
       case "left":
-        if (this.isNavigable(this.positionX - 1, this.positionY)) {
+        if (this.isNavigable(
+          this.positionX - 1,
+          this.positionY)
+        ) {
           this.positionX--;
         }
         break;
       case "right":
-        if (this.isNavigable(this.positionX + 1, this.positionY)) {
+        if (this.isNavigable(
+          this.positionX + 1,
+          this.positionY)
+        ) {
           this.positionX++;
         }
         break;

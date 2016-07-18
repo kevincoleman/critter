@@ -13,7 +13,7 @@ var ENV = process.env.ENV = process.env.NODE_ENV = "development";
 var HMR = helpers.hasProcessFlag("hot");
 
 var metadata = {
-  title: "Angular 2 Base Project",
+  title: "critter",
   baseUrl: "/",
   host: "localhost",
   port: 3000,
@@ -171,4 +171,3 @@ var webpackConfig = {
   }
 };
 module.exports = webpackConfig;
-
