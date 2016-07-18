@@ -8,13 +8,14 @@ import { MapService }
 @Injectable()
 export class HunterService {
 
-  public positionX: number = 4;
+  public positionX: number = 6;
   public positionY: number = 6;
 
   isNavigable(positionX, positionY) {
     let space = this.mapService.getSpace(positionX, positionY);
     if (space !== null) {
-      return space[0].navigable === 1;
+      let roll = Math.random();
+      return (roll < space[0].navigable);
     } else {
       return false;
     }

@@ -8,7 +8,7 @@ export class SpaceService {
   private _types = [
     {type: "water", likelihood: .06, navigable: 1 },
     {type: "rock", likelihood: .18, navigable: 0 },
-    {type: "snow", likelihood: .02, navigable: 1 }
+    {type: "snow", likelihood: .02, navigable: .6 }
   ];
 
   get typesTotal(): number {
