@@ -6,9 +6,9 @@ import { Space } from "../models";
 export class SpaceService {
 
   private _types = [
-    {type: "water", likelihood: .06},
-    {type: "rock", likelihood: .18},
-    {type: "snow", likelihood: .02}
+    {type: "water", likelihood: .06, navigable: 1 },
+    {type: "rock", likelihood: .18, navigable: 0 },
+    {type: "snow", likelihood: .02, navigable: 1 }
   ];
 
   get typesTotal(): number {
@@ -23,7 +23,8 @@ export class SpaceService {
     let space: Space = {
       type: "blank",
       positionX: positionX,
-      positionY: positionY
+      positionY: positionY,
+      navigable: 1
     };
     // roll against each type’s likelihood
     let type = this._types
@@ -37,6 +38,7 @@ export class SpaceService {
       return space;
     } else {
       space.type = type.type;
+      space.navigable = type.navigable;
       return space;
     }
   }

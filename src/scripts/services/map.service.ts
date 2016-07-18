@@ -9,9 +9,13 @@ import { SpaceService }
 @Injectable()
 export class MapService {
 
+  public current: Map;
+
   constructor(
     private spaceService: SpaceService
-  ) { }
+  ) {
+    this.current = this.generate();
+  }
 
   generate() {
     let newMap: Map = new Map([], 0, 0, 16, 16 );
@@ -23,6 +27,18 @@ export class MapService {
       newMap.data = [ ...newMap.data, newSpace ];
     }
     return newMap;
+  }
+
+  getSpace(positionX, positionY) {
+    let space = this.current.data.filter((space) => {
+      return space.positionX === positionX && space.positionY === positionY;
+    });
+
+    if (space.length === 0 || space === undefined) {
+      return null;
+    } else {
+      return space;
+    };
   }
 
 }

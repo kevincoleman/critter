@@ -8,10 +8,6 @@ import { HunterComponent }
 import { HunterService, MapService }
   from "../../services";
 
-import { Map }
-  from "../../models";
-
-
 const template  = require<string>("./map.html");
 const styles    = require<string>("./map.scss");
 
@@ -26,16 +22,16 @@ const styles    = require<string>("./map.scss");
 
 export class MapComponent {
 
-  public hunterX = this.hunterService.positionX * 32;
-  public hunterY = this.hunterService.positionY * 32;
-
-  public map: Map;
+  public hunterX = () => {
+    return this.hunterService.location[0] * 32 - 32;
+  };
+  public hunterY = () => {
+    return this.hunterService.location[1] * 32 - 32;
+  };
 
   constructor (
     public mapService: MapService,
     public hunterService: HunterService
-  ) {
-    this.map = mapService.generate();
-  }
+  ) { }
 
 }
