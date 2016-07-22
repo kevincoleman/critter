@@ -1,4 +1,19 @@
-<div class="map">
-  <space *ngFor="let space of mapService.current.data" [class]="space.type"></space>
-  <hunter [style.top]="hunterY() + 'px'" [style.left]="hunterX() + 'px'"></hunter>
+<div class="map"
+  [style.width]="(mapService.current.width * 32) + 'px'"
+>
+  <space
+    *ngFor="let space of mapService.current.data"
+    [class]="space.type"
+    [style.top]="(mapService.current.positionY * 32) + 'px'"
+    [style.left]="(mapService.current.positionX * 32) + 'px'"
+    [style.opacity]="space.clarity"
+  >
+    <!-- {{space.positionX}}, {{space.positionY}} -->
+  </space>
+  <hunter
+    [style.left]="hunterService.gridPositionX * 32 - 32 + 'px'"
+    [style.top]="hunterService.gridPositionY * 32 - 32 + 'px'"
+  >
+  <!-- {{hunterService.gridPositionX}}, {{hunterService.gridPositionY}} -->
+  </hunter>
 </div>

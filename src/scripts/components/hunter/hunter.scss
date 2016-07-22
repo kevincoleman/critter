@@ -1,6 +1,9 @@
 :host {
   background-image: url("./hunter.png");
+  background-size: contain;
   width: 32px;
   height: 32px;
   position: absolute;
+  font-size: 10px;
+  color: red;
 }

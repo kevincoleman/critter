@@ -3,17 +3,20 @@
   margin: 32px auto;
   width: 512px;
   height: 512px;
-  color: red;
+  color: rgba(255, 255, 255, .2);
   display: flex;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 
 space {
+  position: relative;
   width: 32px;
   height: 32px;
-  background-color: #333;
+  background-color: #665044;
+  font-size: 10px;
 }
 
-.rock { background-color: #654; }
-.water { background-color: #337; }
+.rock { background-color: #848282; }
+.water { background-color: #46c; }
 .snow { background-color: #fff; }

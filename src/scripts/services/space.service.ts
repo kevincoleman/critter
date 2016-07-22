@@ -5,7 +5,8 @@ import { Space } from "../models";
 @Injectable()
 export class SpaceService {
 
-  private _types = [
+  public types = [
+    {type: "blank", likelihood: null, navigable: 1},
     {type: "water", likelihood: .06, navigable: 1 },
     {type: "rock", likelihood: .18, navigable: 0 },
     {type: "snow", likelihood: .02, navigable: .6 }
@@ -13,7 +14,7 @@ export class SpaceService {
 
   get typesTotal(): number {
     let total = 1;
-    this._types.forEach((type) => {
+    this.types.forEach((type) => {
       total = total + type.likelihood;
     });
     return total;
@@ -24,10 +25,12 @@ export class SpaceService {
       type: "blank",
       positionX: positionX,
       positionY: positionY,
-      navigable: 1
+      navigable: 1,
+      clarity: .3
     };
     // roll against each type’s likelihood
-    let type = this._types
+    let type = this.types
+      .slice(1)
       .sort( () => { return .5 - Math.random(); })
       .find( (type) => {
         return Math.random() < (type.likelihood / this.typesTotal);
@@ -42,4 +45,5 @@ export class SpaceService {
       return space;
     }
   }
+
 }
