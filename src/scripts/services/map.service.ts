@@ -86,18 +86,9 @@ export class MapService {
     return distance;
   }
 
-  addColumn() {
-    console.log("add a column");
-  }
-
   addRowOnTop() {
-    // moves the map down
     this.current.positionY--;
-
-    // set the new row’s Y value
     let newPositionY = this.current.data[0].positionY - 1;
-
-    // generate a new row
     let newRow: Space[] = [];
     for (let i: number = 1; i <= this.current.width; i++) {
       newRow = [
@@ -105,14 +96,10 @@ export class MapService {
         this.spaceService.generate(i, newPositionY)
       ];
     }
-
-    // add a row to the map
     this.current.data = [
       ...newRow,
       ...this.current.data
     ];
-
-    // add a semantic row
     this.current.height++;
   }
 
@@ -126,24 +113,26 @@ export class MapService {
     this.current.height++;
   }
 
-  addColumnOnLeft() { }
+  addColumnOnLeft() {
+    this.current.positionX--;
+    let x = 0;
+    for (let i = 1; i <= this.current.height; i++) {
+      this.current.data.splice(x, 0,
+        this.spaceService.generate(this.current.lowestX - 1, i)
+      );
+      x = x + this.current.width + 1;
+    }
+    this.current.lowestX--;
+    this.current.width++;
+  }
 
   addColumnOnRight() {
-
-    // this.current.data.forEach((space, i) => {
-    //   this.current.data = [
-    //     ...this.current.data.slice(0, i),
-    //     this.spaceService.generate(
-    //       this.current.highestX + 1,
-    //       space.positionY
-    //     ),
-    //     ...this.current.data.slice(
-    //       i + 1
-    //     )
-    //   ];
-    // });
-    // this.current.width++;
-
+    for (let i = 1; i <= this.current.height; i++) {
+      this.current.data.splice((this.current.width * i) + i - 1, 0,
+        this.spaceService.generate(this.current.width + 1, i)
+      );
+    }
+    this.current.width++;
   }
 
   get width(): number {

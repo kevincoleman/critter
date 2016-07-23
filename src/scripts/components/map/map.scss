@@ -1,12 +1,16 @@
-.map {
-  position: relative;
+:host {
   margin: 32px auto;
   width: 512px;
   height: 512px;
+  display: block;
+  overflow: hidden;
+}
+
+.map {
+  position: relative;
   color: rgba(255, 255, 255, .2);
   display: flex;
   flex-wrap: wrap;
-  overflow: hidden;
 }
 
 space {

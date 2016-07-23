@@ -8,10 +8,12 @@
     [style.left]="(mapService.current.positionX * 32) + 'px'"
     [style.opacity]="space.clarity"
   >
+  {{space.positionX}}, {{space.positionY}}
   </space>
   <hunter
-    [style.left]="hunterService.gridPositionX * 32 - 32 + 'px'"
-    [style.top]="hunterService.gridPositionY * 32 - 32 + 'px'"
+    [style.left]="(hunterService.gridPositionX * 32) - 32 + 'px'"
+    [style.top]="(hunterService.gridPositionY * 32) - 32 + 'px'"
   >
   </hunter>
 </div>
+{{mapService.current.lowestX}}

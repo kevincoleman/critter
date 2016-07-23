@@ -60,7 +60,7 @@ export class HunterService {
       case "left":
         if (this.isNavigable(this.positionX - 1, this.positionY)
         ) {
-          if (this.positionX === 2) {
+          if (this.gridPositionX < 4) {
             this.mapService.addColumnOnLeft();
             this.mapService.current.positionX++;
           } else {
@@ -75,7 +75,7 @@ export class HunterService {
       case "right":
         if (this.isNavigable(this.positionX + 1, this.positionY)
         ) {
-          if (this.positionX === 15) {
+          if (this.gridPositionX > 12) {
             this.mapService.addColumnOnRight();
             this.mapService.current.positionX--;
           } else {
