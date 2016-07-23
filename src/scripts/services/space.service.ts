@@ -6,10 +6,11 @@ import { Space } from "../models";
 export class SpaceService {
 
   public types = [
-    {type: "blank", likelihood: null, navigable: 1},
+    {type: "blank", likelihood: null, navigable: 1 },
     {type: "water", likelihood: .06, navigable: 1 },
     {type: "rock", likelihood: .18, navigable: 0 },
-    {type: "snow", likelihood: .02, navigable: .6 }
+    {type: "snow", likelihood: .02, navigable: .6 },
+    {type: "grass", likelihood: .6, navigable: 1 }
   ];
 
   get typesTotal(): number {
