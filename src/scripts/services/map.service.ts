@@ -41,44 +41,30 @@ export class MapService {
     newMap.data[85].type = this.spaceService.types[0].type;
     newMap.data[85].navigable = this.spaceService.types[0].navigable;
 
-    // give our hero something to see
-    newMap.data.forEach(
-      (space) => {
-        if (this.taxicab(newMap.data[85], space) <= 4) {
-          space.clarity = 1;
-        }
-      }
-    );
-
     return newMap;
   }
 
-  // let the spaces fade gradually
-  updateFog(hunterX, hunterY) {
-    this.current.data.forEach(
-      (space) => {
-        if (this.taxicab(this.getSpace(
-          hunterX,
-          hunterY
-        ), space) > 5) {
-          if (space.clarity > .3) {
-            space.clarity = space.clarity - .025;
-          }
+  // to minimize number of iterative loops over the map
+  update(changedSpaces: Space[]) {
+    this.current.data.forEach((space) => {
+      changedSpaces.forEach((changedSpace) => {
+        if (
+          changedSpace.positionX === space.positionX &&
+          changedSpace.positionY === space.positionY
+        ) {
+          space.clarity = 1;
         } else {
-          space.clarity = .7;
-          this.current.data.forEach(
-            (space) => {
-              if (this.taxicab(this.getSpace(
-                hunterX,
-                hunterY
-              ), space) <= 4) {
-                space.clarity = 1;
-              }
-            }
-          );
+          this.growFoggy(space);
         }
-      }
-    );
+      });
+    });
+  }
+
+  // let the spaces fade gradually
+  growFoggy(space) {
+    if (space.clarity > .3) {
+      space.clarity = space.clarity - .0005;
+    }
   }
 
   getSpace(positionX, positionY) {

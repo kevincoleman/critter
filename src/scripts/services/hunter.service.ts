@@ -15,10 +15,14 @@ export class HunterService {
   public positionY: number = 6;
   public gridPositionX: number = 6;
   public gridPositionY: number = 6;
+  public surroundings: Space[] = [];
 
   constructor(
     private mapService: MapService
-  ) { }
+  ) {
+    this.initSurroundings();
+    this.mapService.update(this.surroundings);
+  }
 
   // moves hunter & shifts the map when necessary
   public go(direction) {
@@ -33,6 +37,9 @@ export class HunterService {
             this.gridPositionY--;
           }
           this.positionY--;
+          this.surroundings.forEach((space) => {
+            space.positionY--;
+          });
         }
         break;
       case "down":
@@ -45,6 +52,9 @@ export class HunterService {
             this.gridPositionY++;
           }
           this.positionY++;
+          this.surroundings.forEach((space) => {
+            space.positionY++;
+          });
         }
         break;
       case "left":
@@ -57,6 +67,9 @@ export class HunterService {
             this.gridPositionX--;
           }
           this.positionX--;
+          this.surroundings.forEach((space) => {
+            space.positionX--;
+          });
         }
         break;
       case "right":
@@ -69,21 +82,35 @@ export class HunterService {
             this.gridPositionX++;
           }
           this.positionX++;
+          this.surroundings.forEach((space) => {
+            space.positionX++;
+          });
         }
         break;
     }
-    this.mapService.updateFog(this.positionX, this.positionY);
+    this.mapService.update(this.surroundings);
   }
 
-  // gets anything within taxicab distance 3 of the hunter
-  get surroundings(): Space[] {
-    let surroundings = this.mapService.current.data.filter((space) => {
-      return this.mapService.taxicab(
+  initSurroundings() {
+    this.mapService.current.data.forEach((space) => {
+      if (this.mapService.taxicab(
         this.mapService.getSpace(this.positionX, this.positionY),
         space
-      ) <= 3;
+      ) <= 2) {
+        this.surroundings = [
+          ...this.surroundings,
+          new Space(
+            space.type,
+            space.positionX,
+            space.positionY,
+            space.navigable,
+            1
+          )
+        ];
+      };
     });
-    return surroundings;
+
+    this.surroundings.forEach(space => space.clarity = 1);
   }
 
   // checks if the space is navigable (could be random)

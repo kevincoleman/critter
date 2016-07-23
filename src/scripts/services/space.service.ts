@@ -22,13 +22,14 @@ export class SpaceService {
   }
 
   generate(positionX, positionY) {
-    let space: Space = {
-      type: "blank",
-      positionX: positionX,
-      positionY: positionY,
-      navigable: 1,
-      clarity: .3
-    };
+    let space: Space = new Space(
+      "blank",
+      positionX,
+      positionY,
+      1,
+      .1
+    );
+
     // roll against each type’s likelihood
     let type = this.types
       .slice(1)
