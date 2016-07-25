@@ -3,18 +3,17 @@
   width: 512px;
   height: 512px;
   display: block;
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .map {
   position: relative;
   color: rgba(255, 255, 255, .2);
-  display: flex;
   flex-wrap: wrap;
 }
 
 space {
-  position: relative;
+  position: absolute;
   width: 32px;
   height: 32px;
   background-color: #43672c;

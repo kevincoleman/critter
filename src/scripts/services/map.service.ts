@@ -86,52 +86,67 @@ export class MapService {
     return distance;
   }
 
-  addRowOnTop() {
-    this.current.positionY--;
-    let newPositionY = this.current.data[0].positionY - 1;
+  makeNewRow(positionY) {
     let newRow: Space[] = [];
-    for (let i: number = 1; i <= this.current.width; i++) {
+    for (
+      let i: number = this.current.lowestX;
+      i <= this.current.highestX;
+      i++
+    ) {
       newRow = [
         ...newRow,
-        this.spaceService.generate(i, newPositionY)
+        this.spaceService.generate(i, positionY)
       ];
     }
+    return newRow;
+  }
+
+  addRowOnTop() {
+    this.current.positionY++;
     this.current.data = [
-      ...newRow,
+      ...this.makeNewRow(this.current.lowestY - 1),
       ...this.current.data
     ];
+    this.current.lowestY--;
     this.current.height++;
   }
 
   addRowOnBottom() {
-    for (let i = 0; i < this.current.width; i++) {
-      this.current.data = [
-        ...this.current.data,
-        this.spaceService.generate(i + 1, this.current.height + 1)
-      ];
-    }
+    this.current.positionY--;
+    this.current.data = [
+      ...this.current.data,
+      ...this.makeNewRow(this.current.highestY + 1)
+    ];
+    this.current.highestY++;
     this.current.height++;
   }
 
   addColumnOnLeft() {
-    this.current.positionX--;
-    let x = 0;
-    for (let i = 1; i <= this.current.height; i++) {
-      this.current.data.splice(x, 0,
-        this.spaceService.generate(this.current.lowestX - 1, i)
+    this.current.positionX++;
+    let index: number = 0;
+    for (let i: number = 1; i <= this.current.height; i++) {
+      this.current.data.splice(index, 0,
+        this.spaceService.generate(
+          this.current.lowestX - 1,
+          (i + this.current.lowestY) - 1
+        )
       );
-      x = x + this.current.width + 1;
     }
     this.current.lowestX--;
     this.current.width++;
   }
 
   addColumnOnRight() {
-    for (let i = 1; i <= this.current.height; i++) {
+    this.current.positionX--;
+    for (let i: number = 1; i <= this.current.height; i++) {
       this.current.data.splice((this.current.width * i) + i - 1, 0,
-        this.spaceService.generate(this.current.width + 1, i)
+        this.spaceService.generate(
+          this.current.highestX + 1,
+          (i + this.current.lowestY) - 1
+        )
       );
     }
+    this.current.highestX++;
     this.current.width++;
   }
 

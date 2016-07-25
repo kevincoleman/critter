@@ -32,7 +32,6 @@ export class HunterService {
         ) {
           if (this.gridPositionY < 4) {
             this.mapService.addRowOnTop();
-            this.mapService.current.positionY++;
           } else {
             this.gridPositionY--;
           }
@@ -47,7 +46,6 @@ export class HunterService {
         ) {
           if (this.gridPositionY > 12) {
             this.mapService.addRowOnBottom();
-            this.mapService.current.positionY--;
           } else {
             this.gridPositionY++;
           }
@@ -62,7 +60,6 @@ export class HunterService {
         ) {
           if (this.gridPositionX < 4) {
             this.mapService.addColumnOnLeft();
-            this.mapService.current.positionX++;
           } else {
             this.gridPositionX--;
           }
@@ -77,7 +74,6 @@ export class HunterService {
         ) {
           if (this.gridPositionX > 12) {
             this.mapService.addColumnOnRight();
-            this.mapService.current.positionX--;
           } else {
             this.gridPositionX++;
           }
@@ -111,6 +107,14 @@ export class HunterService {
     });
 
     this.surroundings.forEach(space => space.clarity = 1);
+  }
+
+  get hunterX() {
+    return this.gridPositionX - this.mapService.current.positionX;
+  }
+
+  get hunterY() {
+    return this.gridPositionY - this.mapService.current.positionY;
   }
 
   // checks if the space is navigable (could be random)

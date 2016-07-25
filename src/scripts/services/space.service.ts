@@ -27,7 +27,7 @@ export class SpaceService {
       positionX,
       positionY,
       1,
-      .1
+      0 // starts dark
     );
 
     // roll against each type’s likelihood
