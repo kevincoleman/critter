@@ -85,6 +85,28 @@ export class HunterService {
         break;
     }
     this.mapService.update(this.surroundings);
+    // this.debug();
+  }
+
+  debug() {
+    console.log(
+      "Hunter:\n" +
+      "  Map Position:    " + this.positionX, this.positionY + "\n" +
+      "  Grid Position:   " + this.gridPositionX, this.gridPositionY + "\n" +
+      "Map:\n" +
+      "  Width:           " + this.mapService.current.width + "\n" +
+      "  Height:          " + this.mapService.current.height + "\n" +
+      "  lowestX:         " + this.mapService.current.lowestX + "\n" +
+      "  lowestY:         " + this.mapService.current.lowestY + "\n" +
+      "  highestX:        " + this.mapService.current.highestX + "\n" +
+      "  highestY:        " + this.mapService.current.highestY + "\n" +
+      "  Offset Position: " +
+        this.mapService.current.positionX, this.mapService.current.positionY +
+      "\n" +
+      "Visible:\n" +
+      "  Center:          " +
+        this.surroundings[6].positionX, this.surroundings[6].positionY
+    );
   }
 
   initSurroundings() {
