@@ -150,8 +150,4 @@ export class MapService {
     this.current.width++;
   }
 
-  get width(): number {
-    return this.current.width;
-  }
-
 }

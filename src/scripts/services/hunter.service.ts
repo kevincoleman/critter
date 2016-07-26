@@ -122,7 +122,8 @@ export class HunterService {
             space.positionX,
             space.positionY,
             space.navigable,
-            1
+            1,
+            null
           )
         ];
       };

@@ -4,6 +4,8 @@ import { Component }
 
 import { HunterComponent }
   from "../hunter/hunter.component";
+import { ChomperComponent }
+  from "../critters/chomper/chomper.component";
 
 import { HunterService, MapService }
   from "../../services";
@@ -16,6 +18,7 @@ const styles    = require<string>("./map.scss");
   template:   template,
   styles:     [ styles ],
   directives: [
+    ChomperComponent,
     HunterComponent
   ]
 })
