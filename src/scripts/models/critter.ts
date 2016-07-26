@@ -1,9 +1,8 @@
 export class Critter {
   constructor (
-    public name: string,
-    public symbol: string,
+    public name: string = "",
     public level: number,
-    public speed: number,
-    public detail: string
+    public likelihood: number,
+    public speed: number
   ) {}
 }

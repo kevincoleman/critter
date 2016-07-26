@@ -1,15 +1,27 @@
-import { Component } from "@angular/core";
+import { Component }
+  from "@angular/core";
+
+import { HunterService, MapService }
+  from "../../../services";
 
 const template = require<string>("./chomper.html");
+const styles =   require<string>("./chomper.scss");
 
 @Component({
   selector: "chomper",
-  template: template
+  template: template,
+  styles: [ styles ]
 })
 
 export class ChomperComponent {
-    name: string =  "chomper";
-    symbol: string = "#";
-    level: number = 1;
-    speed: number = 1;
+
+  public positionX: number;
+  public positionY: number;
+  public opacity: number;
+
+  constructor(
+    private hunterService: HunterService,
+    private mapService: MapService
+  ) { }
+
 }
