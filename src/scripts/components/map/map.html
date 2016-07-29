@@ -5,11 +5,12 @@
   <space
     *ngFor="let space of mapService.current.data"
     [class]="space.type"
+    [class.fading]="!space.visible"
+    [class.visible]="space.visible"
     [style.top]="(space.positionY * 32) - 32 + 'px'"
     [style.left]="(space.positionX * 32) - 32 + 'px'"
-    [style.opacity]="space.clarity"
   >
-    <chomper *ngIf="space.critter.name === 'chomper'"></chomper>
+    <!-- <chomper *ngIf="space.critter.name === 'chomper'"></chomper> -->
   </space>
   <hunter
     [style.left]="(hunterService.hunterX * 32) - 32 + 'px'"
