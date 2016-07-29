@@ -11,17 +11,20 @@ import { Space }
 @Injectable()
 export class HunterService {
 
-  public positionX: number = 6;
-  public positionY: number = 6;
-  public gridPositionX: number = 6;
-  public gridPositionY: number = 6;
+  public positionX: number = 3;
+  public positionY: number = 3;
+  public gridPositionX: number = 3;
+  public gridPositionY: number = 3;
   public surroundings: Space[] = [];
 
   constructor(
     private mapService: MapService
   ) {
     this.initSurroundings();
-    this.mapService.update(this.surroundings);
+    this.mapService.update(
+      this.surroundings,
+      [this.positionX, this.positionY]
+    );
   }
 
   // moves hunter & shifts the map when necessary
@@ -31,7 +34,7 @@ export class HunterService {
         if (this.isNavigable(this.positionX, this.positionY - 1)
         ) {
           if (this.gridPositionY < 4) {
-            this.mapService.addRowOnTop();
+            this.mapService.current.positionY++;
           } else {
             this.gridPositionY--;
           }
@@ -44,8 +47,8 @@ export class HunterService {
       case "down":
         if (this.isNavigable(this.positionX, this.positionY + 1)
         ) {
-          if (this.gridPositionY > 12) {
-            this.mapService.addRowOnBottom();
+          if (this.gridPositionY >= 12) {
+            this.mapService.current.positionY--;
           } else {
             this.gridPositionY++;
           }
@@ -59,7 +62,7 @@ export class HunterService {
         if (this.isNavigable(this.positionX - 1, this.positionY)
         ) {
           if (this.gridPositionX < 4) {
-            this.mapService.addColumnOnLeft();
+            this.mapService.current.positionX++;
           } else {
             this.gridPositionX--;
           }
@@ -72,8 +75,8 @@ export class HunterService {
       case "right":
         if (this.isNavigable(this.positionX + 1, this.positionY)
         ) {
-          if (this.gridPositionX > 12) {
-            this.mapService.addColumnOnRight();
+          if (this.gridPositionX >= 12) {
+            this.mapService.current.positionX--;
           } else {
             this.gridPositionX++;
           }
@@ -84,7 +87,10 @@ export class HunterService {
         }
         break;
     }
-    this.mapService.update(this.surroundings);
+    this.mapService.update(
+      this.surroundings,
+      [this.positionX, this.positionY]
+    );
     // this.debug();
   }
 
@@ -114,7 +120,7 @@ export class HunterService {
       if (this.mapService.taxicab(
         this.mapService.getSpace(this.positionX, this.positionY),
         space
-      ) <= 2) {
+      ) <= 3) {
         this.surroundings = [
           ...this.surroundings,
           new Space(
@@ -122,14 +128,14 @@ export class HunterService {
             space.positionX,
             space.positionY,
             space.navigable,
-            1,
+            true,
             null
           )
         ];
       };
     });
 
-    this.surroundings.forEach(space => space.clarity = 1);
+    this.surroundings.forEach(space => space.visible = true);
   }
 
   get hunterX() {

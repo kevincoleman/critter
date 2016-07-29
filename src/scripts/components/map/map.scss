@@ -18,6 +18,18 @@ space {
   height: 32px;
   background-color: #43672c;
   font-size: 10px;
+  transition: opacity 20s ease-in;
+  opacity: 1;
+
+  &.fading {
+    opacity: .3;
+  }
+
+  &.visible {
+    transition: opacity 0s;
+    opacity: 1;
+  }
+
 }
 
 .grass { background-color: #396022; }

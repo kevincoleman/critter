@@ -7,7 +7,7 @@ export class Space {
     public positionX: number,
     public positionY: number,
     public navigable: number,
-    public clarity: number,
-    public critter: Critter
+    public visible: boolean,
+    public critter?: Critter
   ) {};
 }

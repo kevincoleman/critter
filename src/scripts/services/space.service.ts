@@ -27,7 +27,7 @@ export class SpaceService {
       positionX,
       positionY,
       1,
-      0,
+      true,
       new Critter("chomper", 1, .005, .2)
     );
 
