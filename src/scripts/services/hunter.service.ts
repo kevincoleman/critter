@@ -137,6 +137,9 @@ export class HunterService {
     return this.gridPositionY - this.mapService.current.positionY;
   }
 
+
+// THIS COULD BE USED ON ONLY LIMITED SETS VERY SUCESSFULLY
+
   // checks if the space is navigable (could be random)
   isNavigable(positionX, positionY) {
     let space = this.mapService.getSpace(positionX, positionY);
