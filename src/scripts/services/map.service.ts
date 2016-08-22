@@ -53,7 +53,12 @@ export class MapService {
 
   // to minimize number of iterative loops over the map
   update(changedSpaces: Space[], hunterXY: number[]) {
-    this.current.data.forEach((space) => {
+    // limit scope to immediate surroundings
+    this.current.data.filter(
+      (space) => {
+        return this.taxicab(hunterXY, [space.positionX, space.positionY]) <= 5;
+      }
+    ).forEach((space) => {
       changedSpaces.forEach((changedSpace) => {
         // generate a new space if user finds edge
         if (this.getSpace(
@@ -68,23 +73,11 @@ export class MapService {
             )
           ];
         }
-        if (
-          changedSpace.positionX === space.positionX &&
-          changedSpace.positionY === space.positionY
-        ) {
-          space.visible = true;
-        } else {
-          if (this.taxicab(
-            space,
-            new Space(null, hunterXY[0], hunterXY[1], null, null, null)
-          ) > 3) {
-            space.visible = false;
-          };
-        }
       });
     });
   }
 
+  // expensive; use sparingly
   getSpace(positionX, positionY) {
     let space: Space[] = this.current.data.filter((space) => {
       return space.positionX === positionX && space.positionY === positionY;
