@@ -112,8 +112,8 @@ export class HunterService {
   initSurroundings() {
     this.mapService.current.data.forEach((space) => {
       if (this.mapService.taxicab(
-        this.mapService.getSpace(this.positionX, this.positionY),
-        space
+        [3, space.positionX],
+        [3, space.positionY]
       ) <= 3) {
         this.surroundings = [
           ...this.surroundings,

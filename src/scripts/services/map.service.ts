@@ -36,8 +36,8 @@ export class MapService {
       );
       if (
         this.taxicab(
-          newSpace,
-          new Space(null, 3, 3, null, null, null)
+          [newSpace.positionX, newSpace.positionY],
+          [3, 3]
         ) <= 3
       ) {
         newMap.data = [ ...newMap.data, newSpace ];
@@ -98,10 +98,10 @@ export class MapService {
   }
 
   // finds distance between two spaces
-  taxicab(spaceA: Space, spaceB: Space) {
+  taxicab(spaceA: number[], spaceB: number[]) {
     let distance: number = 0;
-    distance = distance + Math.abs(spaceA.positionX - spaceB.positionX);
-    distance = distance + Math.abs(spaceA.positionY - spaceB.positionY);
+    distance = distance + Math.abs(spaceA[0] - spaceB[0]);
+    distance = distance + Math.abs(spaceA[1] - spaceB[1]);
     return distance;
   }
 }
