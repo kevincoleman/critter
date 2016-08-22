@@ -1,6 +1,6 @@
 // Core
 import { Injectable } from "@angular/core";
-import { Critter, Space } from "../models";
+import { Space } from "../models";
 
 @Injectable()
 export class SpaceService {
@@ -21,14 +21,13 @@ export class SpaceService {
     return total;
   }
 
-  generate(positionX, positionY) {
+  generate(positionX, positionY): Space {
     let space: Space = new Space(
       "blank",
       positionX,
       positionY,
       1,
-      true,
-      new Critter("chomper", 1, .005, .2)
+      true
     );
 
     // roll against each type’s likelihood
@@ -48,5 +47,4 @@ export class SpaceService {
       return space;
     }
   }
-
 }

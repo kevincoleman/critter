@@ -100,12 +100,6 @@ export class HunterService {
       "  Map Position:    " + this.positionX, this.positionY + "\n" +
       "  Grid Position:   " + this.gridPositionX, this.gridPositionY + "\n" +
       "Map:\n" +
-      "  Width:           " + this.mapService.current.width + "\n" +
-      "  Height:          " + this.mapService.current.height + "\n" +
-      "  lowestX:         " + this.mapService.current.lowestX + "\n" +
-      "  lowestY:         " + this.mapService.current.lowestY + "\n" +
-      "  highestX:        " + this.mapService.current.highestX + "\n" +
-      "  highestY:        " + this.mapService.current.highestY + "\n" +
       "  Offset Position: " +
         this.mapService.current.positionX, this.mapService.current.positionY +
       "\n" +
@@ -128,14 +122,11 @@ export class HunterService {
             space.positionX,
             space.positionY,
             space.navigable,
-            true,
-            null
+            true
           )
         ];
-      };
+      }
     });
-
-    this.surroundings.forEach(space => space.visible = true);
   }
 
   get hunterX() {

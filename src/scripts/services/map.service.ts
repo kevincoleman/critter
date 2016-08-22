@@ -22,12 +22,12 @@ export class MapService {
       [], // data
       0,  // positionX
       0,  // positionY
-      5, // width
-      5, // height
+      5,  // width
+      5,  // height
       1,  // lowestX
       1,  // lowestY
-      5, // highestX
-      5  // highestY
+      5,  // highestX
+      5   // highestY
     );
     for (let i = 0; i < (newMap.width * newMap.height); i++) {
       let newSpace = this.spaceService.generate(
