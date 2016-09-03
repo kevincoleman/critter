@@ -62,6 +62,32 @@ export class AppComponent {
         return false;
       })
     );
+
+    // vim movement keys
+    this._hotkeysService.add(
+        new Hotkey("k", (event: KeyboardEvent): boolean => {
+        this._hunterService.go([0, -1]);
+        return false;
+      })
+    );
+    this._hotkeysService.add(
+        new Hotkey("j", (event: KeyboardEvent): boolean => {
+        this._hunterService.go([0, 1]);
+        return false;
+      })
+    );
+    this._hotkeysService.add(
+      new Hotkey("h", (event: KeyboardEvent): boolean => {
+        this._hunterService.go([-1, 0]);
+        return false;
+      })
+    );
+    this._hotkeysService.add(
+        new Hotkey("l", (event: KeyboardEvent): boolean => {
+        this._hunterService.go([1, 0]);
+        return false;
+      })
+    );
   }
 
 }
