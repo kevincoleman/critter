@@ -7,7 +7,7 @@ import { HunterComponent }
 import { ChomperComponent }
   from "../critters/chomper/chomper.component";
 
-import { HunterService, MapService }
+import { CritterService, HunterService, MapService }
   from "../../services";
 
 const template  = require<string>("./map.html");
@@ -26,6 +26,7 @@ const styles    = require<string>("./map.scss");
 export class MapComponent {
 
   constructor (
+    public critterService: CritterService,
     public mapService: MapService,
     public hunterService: HunterService
   ) { }

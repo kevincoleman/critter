@@ -9,7 +9,7 @@ import { HotkeysService, Hotkey }
   from "angular2-hotkeys";
 
 // Services
-import { HunterService, MapService, SpaceService }
+import { CritterService, HunterService, MapService, SpaceService }
   from "../../services";
 
 const template  = require<string>("./app.html");
@@ -20,6 +20,7 @@ const styles    = require<string>("./app.scss");
   template:   template,
   styles:     [ styles ],
   providers:  [
+    CritterService,
     HotkeysService,
     HunterService,
     MapService,

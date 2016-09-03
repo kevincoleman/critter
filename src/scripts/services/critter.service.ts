@@ -11,58 +11,70 @@ import { Critter }
 @Injectable()
 export class CritterService {
 
-  public critters: Critter[];
+  public critters: Critter[] = [
+    new Critter(
+      "chomper",  // name
+      1,          // level
+      .5,         // likelihood
+      .2,         // speed
+      -2,          // positionX
+      1           // positionY
+    ),
+    new Critter(
+      "chomper",  // name
+      1,          // level
+      .5,         // likelihood
+      .2,         // speed
+      8,          // positionX
+      4           // positionY
+    ),
+    new Critter(
+      "chomper",  // name
+      1,          // level
+      .5,         // likelihood
+      .2,         // speed
+      4,          // positionX
+      5           // positionY
+    ),
+    new Critter(
+      "chomper",  // name
+      1,          // level
+      .5,         // likelihood
+      .2,         // speed
+      2,          // positionX
+      4           // positionY
+    )
+  ];
 
   constructor(
     private mapService: MapService
   ) { }
 
-  public go(critter, direction) {
-    switch (direction) {
-      case "up":
-        if (
-          this.mapService.isNavigable(
-            this.mapService.getSpace(
-              critter.positionX,
-              critter.positionY - 1,
-              this.mapService.nearby
-            )
-          )
-        ) { critter.positionY--; }
-        break;
-      case "down":
-        if (
-          this.mapService.isNavigable(
-            this.mapService.getSpace(
-              critter.positionX,
-              critter.positionY + 1,
-              this.mapService.nearby
-            )
-          )
-        ) { critter.positionY++; }
-        break;
-      case "left":
-        if (
-          this.mapService.isNavigable(
-            this.mapService.getSpace(
-              critter.positionX - 1,
-              critter.positionY,
-              this.mapService.nearby
-            )
-          )
-        ) { critter.positionX--; }
-        break;
-      case "right":
-        if (
-          this.mapService.isNavigable(
-            this.mapService.getSpace(
-              critter.positionX + 1,
-              critter.positionY,
-              this.mapService.nearby
-            )
-          )
-        ) { critter.positionX++; }
-        break;
+  processMoves(): void {
+    this.randomlyMove();
+  }
+
+  public go(critter, direction): void {
+    if (
+      this.mapService.isNavigable(
+        this.mapService.getSpace(
+          critter.positionX + direction[0],
+          critter.positionY + direction[1]
+        )
+      )
+    ) {
+      critter.positionX = critter.positionX + direction[0];
+      critter.positionY = critter.positionY + direction[1];
     }
+  }
+
+  randomlyMove(): void {
+    this.critters.forEach(critter => {
+      if (Math.random() <= critter.speed) {
+        let directions = [[0, -1], [1, 0], [0, 1], [-1, 0]];
+        let direction = Math.floor(Math.random() * 4);
+        this.go(critter, directions[direction]);
+      }
+    });
   }
 }

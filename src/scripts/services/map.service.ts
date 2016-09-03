@@ -76,7 +76,7 @@ export class MapService {
         if (this.getSpace(
             changedSpace.positionX,
             changedSpace.positionY
-          ) === undefined) {
+          ) === null) {
           this.current.data = [
             ...this.current.data,
             this.spaceService.generate(
@@ -112,7 +112,12 @@ export class MapService {
     found = spaces.filter((space) => {
       return space.positionX === positionX && space.positionY === positionY;
     })[0];
-    return found; // returns space or undefined
+
+    if (found) {
+      return found; // returns space or null
+    } else {
+      return null;
+    }
   }
 
   // finds distance between two spaces
@@ -125,7 +130,11 @@ export class MapService {
 
   // checks if the space is navigable (on this try)
   isNavigable(space: Space) {
-    let roll = Math.random();
-    return (roll < space.navigable);
+    if (space === null) {
+      return null;
+    } else {
+      let roll = Math.random();
+      return (roll < space.navigable);
+    }
   }
 }

@@ -10,11 +10,16 @@
     [style.top]="(space.positionY * 32) - 32 + 'px'"
     [style.left]="(space.positionX * 32) - 32 + 'px'"
   >
-    <!-- <chomper *ngIf="space.critter.name === 'chomper'"></chomper> -->
   </space>
   <hunter
     [style.left]="(hunterService.hunterX * 32) - 32 + 'px'"
     [style.top]="(hunterService.hunterY * 32) - 32 + 'px'"
   >
   </hunter>
+  <chomper
+    *ngFor="let critter of critterService.critters"
+    [style.left]="(critter.positionX * 32) - 32 + 'px'"
+    [style.top]="(critter.positionY * 32) - 32 + 'px'"
+  >
+  </chomper>
 </div>

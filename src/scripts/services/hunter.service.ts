@@ -5,6 +5,9 @@ import { Injectable }
 import { MapService }
   from "./map.service";
 
+import { CritterService }
+  from "./critter.service";
+
 import { Space }
   from "../models";
 
@@ -19,6 +22,7 @@ export class HunterService {
   public hotZone: Space[] = []; // directly adjecent (taxicab <= 1)
 
   constructor(
+    private critterService: CritterService,
     private mapService: MapService
   ) {
     this.initSurroundings();
@@ -71,6 +75,7 @@ export class HunterService {
           return;
         }
       );
+      this.critterService.processMoves();
     }
 
     this.mapService.update(
