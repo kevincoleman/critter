@@ -39,25 +39,25 @@ export class AppComponent {
   ) {
     this._hotkeysService.add(
         new Hotkey("up", (event: KeyboardEvent): boolean => {
-        this._hunterService.go("up");
+        this._hunterService.go([0, -1]);
         return false;
       })
     );
     this._hotkeysService.add(
         new Hotkey("down", (event: KeyboardEvent): boolean => {
-        this._hunterService.go("down");
+        this._hunterService.go([0, 1]);
         return false;
       })
     );
     this._hotkeysService.add(
       new Hotkey("left", (event: KeyboardEvent): boolean => {
-        this._hunterService.go("left");
+        this._hunterService.go([-1, 0]);
         return false;
       })
     );
     this._hotkeysService.add(
         new Hotkey("right", (event: KeyboardEvent): boolean => {
-        this._hunterService.go("right");
+        this._hunterService.go([1, 0]);
         return false;
       })
     );

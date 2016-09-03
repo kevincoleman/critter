@@ -15,12 +15,14 @@ export class HunterService {
   public positionY: number = 3;
   public gridPositionX: number = 3;
   public gridPositionY: number = 3;
-  public surroundings: Space[] = [];
+  public surroundings: Space[] = []; // only what is visible (taxicab <= 3)
+  public hotZone: Space[] = []; // directly adjecent (taxicab <= 1)
 
   constructor(
     private mapService: MapService
   ) {
     this.initSurroundings();
+    this.initHotZone();
     this.mapService.update(
       this.surroundings,
       [this.positionX, this.positionY]
@@ -28,73 +30,59 @@ export class HunterService {
   }
 
   // moves hunter & shifts the map when necessary
-  public go(direction) {
-    switch (direction) {
-      case "up":
-        if (this.isNavigable(this.positionX, this.positionY - 1)
-        ) {
-          if (this.gridPositionY < 4) {
-            this.mapService.current.positionY++;
-          } else {
-            this.gridPositionY--;
-          }
-          this.positionY--;
-          this.surroundings.forEach((space) => {
-            space.positionY--;
-          });
+  public go(direction): void {
+    if (
+      this.mapService.isNavigable(
+        this.mapService.getSpace(
+          this.positionX + direction[0],
+          this.positionY + direction[1],
+          this.hotZone
+        )
+      )
+    ) {
+      if (
+        // near the edge and...
+        (this.gridPositionY < 4 && direction[1] === -1) || // going up
+        (this.gridPositionX < 4 && direction[0] === -1) || // going left
+        (this.gridPositionY > 12 && direction[1] === 1) || // going down
+        (this.gridPositionX > 12 && direction[0] === 1)    // going right
+      ) {
+        this.mapService.current.positionX =
+          this.mapService.current.positionX - direction[0];
+        this.mapService.current.positionY =
+          this.mapService.current.positionY - direction[1];
+      } else {
+        this.gridPositionX = this.gridPositionX + direction[0];
+        this.gridPositionY = this.gridPositionY + direction[1];
+      }
+      this.positionX = this.positionX + direction[0];
+      this.positionY = this.positionY + direction[1];
+      this.surroundings.forEach(
+        space => {
+          space.positionX = space.positionX + direction[0];
+          space.positionY = space.positionY + direction[1];
+          return;
         }
-        break;
-      case "down":
-        if (this.isNavigable(this.positionX, this.positionY + 1)
-        ) {
-          if (this.gridPositionY >= 12) {
-            this.mapService.current.positionY--;
-          } else {
-            this.gridPositionY++;
-          }
-          this.positionY++;
-          this.surroundings.forEach((space) => {
-            space.positionY++;
-          });
+      );
+      this.hotZone.forEach(
+        space => {
+          space.positionX = space.positionX + direction[0];
+          space.positionY = space.positionY + direction[1];
+          return;
         }
-        break;
-      case "left":
-        if (this.isNavigable(this.positionX - 1, this.positionY)
-        ) {
-          if (this.gridPositionX < 4) {
-            this.mapService.current.positionX++;
-          } else {
-            this.gridPositionX--;
-          }
-          this.positionX--;
-          this.surroundings.forEach((space) => {
-            space.positionX--;
-          });
-        }
-        break;
-      case "right":
-        if (this.isNavigable(this.positionX + 1, this.positionY)
-        ) {
-          if (this.gridPositionX >= 12) {
-            this.mapService.current.positionX--;
-          } else {
-            this.gridPositionX++;
-          }
-          this.positionX++;
-          this.surroundings.forEach((space) => {
-            space.positionX++;
-          });
-        }
-        break;
+      );
     }
+
     this.mapService.update(
       this.surroundings,
       [this.positionX, this.positionY]
     );
+
+    this.updateHotZone();
     // this.debug();
   }
 
-  debug() {
+  debug(): void {
     console.log(
       "Hunter:\n" +
       "  Map Position:    " + this.positionX, this.positionY + "\n" +
@@ -109,11 +97,11 @@ export class HunterService {
     );
   }
 
-  initSurroundings() {
+  initSurroundings(): void {
     this.mapService.current.data.forEach((space) => {
       if (this.mapService.taxicab(
-        [3, space.positionX],
-        [3, space.positionY]
+        [3, 3],
+        [space.positionX, space.positionY]
       ) <= 3) {
         this.surroundings = [
           ...this.surroundings,
@@ -129,26 +117,41 @@ export class HunterService {
     });
   }
 
-  get hunterX() {
+  initHotZone(): void {
+    this.surroundings.forEach((space) => {
+      if (this.mapService.taxicab(
+        [3, 3],
+        [space.positionX, space.positionY]
+      ) <= 1) {
+        this.hotZone = [
+          ...this.hotZone,
+          new Space(
+            space.type,
+            space.positionX,
+            space.positionY,
+            space.navigable,
+            true
+          )
+        ];
+      }
+    });
+  }
+
+  updateHotZone(): void {
+    this.hotZone.forEach(space => {
+      let match = this.mapService.getSpace(
+        space.positionX,
+        space.positionY,
+        this.mapService.nearby);
+      space.navigable = match.navigable;
+    });
+  }
+
+  get hunterX(): number {
     return this.gridPositionX - this.mapService.current.positionX;
   }
 
-  get hunterY() {
+  get hunterY(): number {
     return this.gridPositionY - this.mapService.current.positionY;
   }
-
-
-// THIS COULD BE USED ON ONLY LIMITED SETS VERY SUCESSFULLY
-
-  // checks if the space is navigable (could be random)
-  isNavigable(positionX, positionY) {
-    let space = this.mapService.getSpace(positionX, positionY);
-    if (space !== null) {
-      let roll = Math.random();
-      return (roll < space.navigable);
-    } else {
-      return false;
-    }
-  }
-
 }

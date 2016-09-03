@@ -10,6 +10,7 @@ import { SpaceService }
 export class MapService {
 
   public current: Map;
+  public nearby: Space[]; // an instanced filtered set of current.data
 
   constructor(
     private spaceService: SpaceService
@@ -48,6 +49,13 @@ export class MapService {
     newMap.data[10].type = this.spaceService.types[0].type;
     newMap.data[10].navigable = this.spaceService.types[0].navigable;
 
+    // set “nearby” spaces (taxicab <= 4)
+    this.nearby = newMap.data.filter(
+      (space) => {
+        space.visible = false;
+        return this.taxicab([3, 3], [space.positionX, space.positionY]) <= 4;
+      }
+    );
     return newMap;
   }
 
@@ -55,19 +63,20 @@ export class MapService {
   update(changedSpaces: Space[], hunterXY: number[]) {
 
     // limit scope to immediate surroundings
-    this.current.data.filter(
+    this.nearby = this.current.data.filter(
       (space) => {
         space.visible = false;
         return this.taxicab(hunterXY, [space.positionX, space.positionY]) <= 4;
       }
-    ).forEach((space) => {
+    );
+    this.nearby.forEach((space) => {
       changedSpaces.forEach((changedSpace) => {
 
         // generate a new space if user finds edge
         if (this.getSpace(
             changedSpace.positionX,
             changedSpace.positionY
-          ) === null) {
+          ) === undefined) {
           this.current.data = [
             ...this.current.data,
             this.spaceService.generate(
@@ -85,17 +94,25 @@ export class MapService {
     });
   }
 
-  // expensive; use sparingly
-  getSpace(positionX, positionY) {
-    let space: Space[] = this.current.data.filter((space) => {
-      return space.positionX === positionX && space.positionY === positionY;
-    });
+  // expensive; supply a limited spaceSet when possible
+  getSpace(
+    positionX: number,
+    positionY: number,
+    spaceSet?: Space[]
+  ): Space {
+    let spaces: Space[];
+    let found: Space;
 
-    if (space.length === 0 || space === undefined) {
-      return null;
+    if (spaceSet !== undefined) {
+      spaces = spaceSet;
     } else {
-      return space[0];
-    };
+      spaces = this.current.data;
+    }
+
+    found = spaces.filter((space) => {
+      return space.positionX === positionX && space.positionY === positionY;
+    })[0];
+    return found; // returns space or undefined
   }
 
   // finds distance between two spaces
@@ -104,5 +121,11 @@ export class MapService {
     distance = distance + Math.abs(spaceA[0] - spaceB[0]);
     distance = distance + Math.abs(spaceA[1] - spaceB[1]);
     return distance;
+  }
+
+  // checks if the space is navigable (on this try)
+  isNavigable(space: Space) {
+    let roll = Math.random();
+    return (roll < space.navigable);
   }
 }
