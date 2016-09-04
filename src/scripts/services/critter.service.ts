@@ -18,11 +18,12 @@ export class CritterService {
       .5,         // likelihood
       .2,         // speed
       -2,          // positionX
-      1           // positionY
+      1,           // positionY
+      false
     ),
-    new Critter("chomper", 1, .5, .2, 8, 4 ),
-    new Critter("chomper", 1, .5, .2, 2, 4 ),
-    new Critter("chomper", 1, .5, .2, 4, 5 ),
+    new Critter("chomper", 1, .5, .2, 8, 4, false ),
+    new Critter("chomper", 1, .5, .2, 2, 4, false ),
+    new Critter("chomper", 1, .5, .2, 4, 5, false ),
   ];
 
   constructor(

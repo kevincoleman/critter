@@ -5,6 +5,7 @@ export class Critter {
     public likelihood: number,
     public speed: number,
     public positionX: number,
-    public positionY: number
+    public positionY: number,
+    public visible: boolean
   ) {}
 }

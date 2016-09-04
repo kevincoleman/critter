@@ -31,6 +31,14 @@ export class HunterService {
       this.surroundings,
       [this.positionX, this.positionY]
     );
+    this.surroundings.forEach(space => {
+      this.critterService.critters.forEach(critter => {
+        if (critter.positionX === space.positionX &&
+            critter.positionY === space.positionY) {
+              critter.visible = true;
+            }
+      });
+    });
   }
 
   // moves hunter & shifts the map when necessary
@@ -84,6 +92,15 @@ export class HunterService {
     );
 
     this.updateHotZone();
+
+    this.surroundings.forEach(space => {
+      this.critterService.critters.forEach(critter => {
+        if (critter.positionX === space.positionX &&
+            critter.positionY === space.positionY) {
+              critter.visible = true;
+            }
+      });
+    });
     // this.debug();
   }
 

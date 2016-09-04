@@ -59,7 +59,7 @@ export class MapService {
     return newMap;
   }
 
-  // to minimize number of iterative loops over the map
+  // one loop, to minimize number of iterative loops over the map
   update(changedSpaces: Space[], hunterXY: number[]) {
 
     // limit scope to immediate surroundings
