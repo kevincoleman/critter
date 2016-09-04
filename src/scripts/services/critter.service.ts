@@ -50,9 +50,20 @@ export class CritterService {
   randomlyMove(): void {
     this.critters.forEach(critter => {
       if (Math.random() <= critter.speed) {
-        let directions = [[0, -1], [1, 0], [0, 1], [-1, 0]];
-        let direction = Math.floor(Math.random() * 4);
-        this.go(critter, directions[direction]);
+        let directions: number[][] = [[0, -1], [1, 0], [0, 1], [-1, 0]];
+        let direction: number[] = directions[Math.floor(Math.random() * 4)];
+        let newCoordinates: number[] = [
+          critter.positionX + direction[0],
+          critter.positionY + direction[1]
+        ];
+        if (
+          this.critters.filter(critter => {
+            return critter.positionX === newCoordinates[0] &&
+                   critter.positionY === newCoordinates[1];
+          }
+        ).length <= 0) {
+          this.go(critter, direction);
+        }
       }
     });
   }
