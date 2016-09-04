@@ -20,30 +20,9 @@ export class CritterService {
       -2,          // positionX
       1           // positionY
     ),
-    new Critter(
-      "chomper",  // name
-      1,          // level
-      .5,         // likelihood
-      .2,         // speed
-      8,          // positionX
-      4           // positionY
-    ),
-    new Critter(
-      "chomper",  // name
-      1,          // level
-      .5,         // likelihood
-      .2,         // speed
-      4,          // positionX
-      5           // positionY
-    ),
-    new Critter(
-      "chomper",  // name
-      1,          // level
-      .5,         // likelihood
-      .2,         // speed
-      2,          // positionX
-      4           // positionY
-    )
+    new Critter("chomper", 1, .5, .2, 8, 4 ),
+    new Critter("chomper", 1, .5, .2, 2, 4 ),
+    new Critter("chomper", 1, .5, .2, 4, 5 ),
   ];
 
   constructor(
