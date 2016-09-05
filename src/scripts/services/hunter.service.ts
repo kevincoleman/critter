@@ -2,14 +2,13 @@
 import { Injectable }
   from "@angular/core";
 
-import { MapService }
-  from "./map.service";
+import { Space }
+  from "../models";
 
 import { CritterService }
   from "./critter.service";
-
-import { Space }
-  from "../models";
+import { MapService }
+  from "./map.service";
 
 @Injectable()
 export class HunterService {
@@ -27,10 +26,6 @@ export class HunterService {
   ) {
     this.initSurroundings();
     this.initHotZone();
-    this.mapService.update(
-      this.surroundings,
-      [this.positionX, this.positionY]
-    );
     this.surroundings.forEach(space => {
       this.critterService.critters.forEach(critter => {
         if (critter.positionX === space.positionX &&
@@ -85,38 +80,6 @@ export class HunterService {
       );
       this.critterService.processMoves();
     }
-
-    this.mapService.update(
-      this.surroundings,
-      [this.positionX, this.positionY]
-    );
-
-    this.updateHotZone();
-
-    this.surroundings.forEach(space => {
-      this.critterService.critters.forEach(critter => {
-        if (critter.positionX === space.positionX &&
-            critter.positionY === space.positionY) {
-              critter.visible = true;
-            }
-      });
-    });
-    // this.debug();
-  }
-
-  debug(): void {
-    console.log(
-      "Hunter:\n" +
-      "  Map Position:    " + this.positionX, this.positionY + "\n" +
-      "  Grid Position:   " + this.gridPositionX, this.gridPositionY + "\n" +
-      "Map:\n" +
-      "  Offset Position: " +
-        this.mapService.current.positionX, this.mapService.current.positionY +
-      "\n" +
-      "Visible:\n" +
-      "  Center:          " +
-        this.surroundings[6].positionX, this.surroundings[6].positionY
-    );
   }
 
   initSurroundings(): void {
